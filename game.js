@@ -1,15 +1,23 @@
 // TODO: 
-// 1. create the collision method, so hitting the ruby would create an event with an output
-// 2. Set up a score variable to display the number of hits
+// 1. Grab the various elements needed from the DOM: hammer, ruby, an area to store the score (can also change the HTML to add the counter)
+// 2. Initialize the canvas
+// 3. Draw the hammer and ruby on the canvas
+// - Requires the use of requestAnimationFrame()
+// 4. Manipulate the hammer so that it can move across the screen
+// - Make sure the hammer cannot leave the viewport
+// 5. Randomize movement of ruby
+// - Coordinates of ruby can be randomized with a helper method
+// - Delay the painting and repainting of the Ruby image
+// 6. Add collision detection using the formula provided
+// 7. When collision occurs, track the score of the game
 
 let hammer = document.getElementById('hammer');
 let ruby = document.getElementById('ruby');
 let canvas = document.getElementById('gameScreen');
 let ctx = canvas.getContext('2d');
-let scoreText = document.createElement('span');
 let div = document.querySelector('div');
 
-div.appendChild(scoreText);
+let currentScore = document.querySelector('#score');
 
 let hammerX = 300, hammerY = 300;
 let rubyX = 150, rubyY = 150;
@@ -22,6 +30,7 @@ function update() {
   let now = new Date().getTime()
   ctx.clearRect(0, 0, 600, 600);
   ctx.drawImage(hammer, hammerX, hammerY, 50, 50);
+  console.log(hammerX, hammerY)
   ctx.drawImage(ruby, xRubyCoord, yRubyCoord, 50, 50 );
 
   if (now - before > 3000) {
@@ -39,33 +48,32 @@ function rubyCoord() {
 
 function keyMoves(e) {
   switch(e.key) {
-    // FIXME: still not able to contain the hammer from leaving the box
     case('ArrowUp'): 
-      if (hammerY -= 50 >= 0) {
+      if (hammerY -50 >= 0) {
         hammerY -= 50;
       } else {
         hammerY = 0;
       }
       break;
     case ('ArrowDown'):
-      if (hammerY += 50 <= 600) {
+      if (hammerY + 50 < 600) {
         hammerY += 50;
       } else {
-        hammerY = 600;
+        hammerY = 550;
       }
       break;
     case ('ArrowLeft'):
-      if (hammerX -= 50 >= 0) {
+      if (hammerX - 50 >= 0) {
         hammerX -= 50;
       } else {
         hammerX = 0;
       }
       break;
     case ('ArrowRight'):
-      if (hammerX += 50 <= 600) {
+      if (hammerX + 50 < 600) {
         hammerX += 50;
       } else {
-        hammerX = 600;
+        hammerX = 550;
       }
       break;
   }
@@ -77,18 +85,18 @@ function calculateCollisionPoint() {
 
 function addToScore() {
   scores += 1;
-  scoreText.textContent = `Scores: ${scores.toString()}`;
+  currentScore.textContent = scores;
 }
 
 function collision() {
   // FIXME: something weird here, not reliably adding to the score
-  let now = new Date().getTime()
-  if (now - before > 1000 && calculateCollisionPoint() < 10) {
+  // FIXME: when collision occurs, sometimes the hammer holds the ruby and the counter keeps going
+  let now = new Date().getTime();
+  if (now - before > 500 && calculateCollisionPoint() < 10) {
     addToScore();
     before = now;
   }
 };
 
 document.addEventListener('keydown', keyMoves);
-
 update();
