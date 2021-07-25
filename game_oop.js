@@ -7,41 +7,41 @@ let Hammer = {
     return this;
   },
 
-  // keyMoves: function(e) {
-  //   // console.log(e);
-  //   switch(e.key) {
-  //     case('keyup'): 
-  //       this.y += 100;
-  //       break;
-  //     case ('keydown'):
-  //       this.y -= 100;
-  //       break;
-  //     case ('keyleft'):
-  //       this.x -= 100;
-  //       break;
-  //     case ('keyright'):
-  //         this.x += 100;
-  //         break;
-  //   }
-  // },
+  keyMoves: function(e) {
+    // console.log(e);
+    document.addEventListener('click', function() {
+      switch(e.key) {
+        case('keyup'): 
+          this.y += 50;
+          break;
+        case ('keydown'):
+          this.y -= 50;
+          break;
+        case ('keyleft'):
+          this.x -= 50;
+          break;
+        case ('keyright'):
+            this.x += 50;
+            break;
+      }
+    });
+  },
 
   // logKey: function(e) {
   //   return e;
   // },
   
-  moves: function() {
-    console.log('moving');
-    let that = this;
-    document.addEventListener('click', function() {
-      console.log(that.x, that.y);
-      console.log('moving');
-      that.x += 50;
-      that.y += 50;
-      // return that;
-    });
-  },
-
-  
+  // moves: function() {
+  //   console.log('moving');
+  //   let that = this;
+  //   document.addEventListener('click', function() {
+  //     console.log(that.x, that.y);
+  //     console.log('moving');
+  //     that.x += 50;
+  //     that.y += 50;
+  //     // return that;
+  //   });
+  // },
 };
 
 let Ruby = {
@@ -63,26 +63,28 @@ let Game = {
     this.width = width;
     this.height = height;
     this.scores = 0;
-    this.canvas = document.getElementById('gameScreen');
-    this.ctx = this.canvas.getContext('2d');
-    this.hammer = Object.create(Hammer).init(500, 500);
-    this.ruby = Object.create(Ruby).init(300, 500);
+   
+    this.hammer = Object.create(Hammer).init(300, 300);
+    this.ruby = Object.create(Ruby).init(200, 200);
     return this;
   },
 
   update: function() {
-      this.ctx.clearRect(0, 0, this.width, this.height);
+      document.addEventListener('keydown', this.hammer.keyMoves);
+      canvas = document.getElementById('gameScreen');
+      ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, this.width, this.height);
       let hammer = document.getElementById('hammer');
       let ruby = document.getElementById('ruby');
-      this.ctx.drawImage(hammer, this.hammer.x, this.hammer.y, this.hammer.width, this.hammer.height);
-      this.ctx.drawImage(ruby, this.ruby.x, this.ruby.y, this.ruby.width, this.ruby.height);
+      ctx.drawImage(hammer, this.hammer.x, this.hammer.y, this.hammer.width, this.hammer.height);
+      ctx.drawImage(ruby, this.ruby.x, this.ruby.y, this.ruby.width, this.ruby.height);
       // this.hammer.moves();
       this.hammer.x += 50;
       this.hammer.y += 50;
-      requestAnimationFrame(this.update);
+      requestAnimationFrame(this.update.bind(this));
   },
 }
 
-const game = Object.create(Game).init(800, 800);
+const game = Object.create(Game).init(600, 600);
 game.update();
 

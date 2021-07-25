@@ -21,7 +21,8 @@ let currentScore = document.querySelector('#score');
 
 let hammerX = 300, hammerY = 300;
 let rubyX = 150, rubyY = 150;
-let before = new Date().getTime();
+let beforeUpdate = new Date().getTime();
+let beforeCollision = new Date().getTime();
 let xRubyCoord = 150, yRubyCoord = 150;
 
 let scores = 0;
@@ -33,10 +34,10 @@ function update() {
   console.log(hammerX, hammerY)
   ctx.drawImage(ruby, xRubyCoord, yRubyCoord, 50, 50 );
 
-  if (now - before > 3000) {
+  if (now - beforeUpdate > 3000) {
       xRubyCoord = rubyCoord();
       yRubyCoord = rubyCoord();
-    before = now;
+      beforeUpdate = now;
   }
   collision();
   requestAnimationFrame(update);
@@ -90,11 +91,11 @@ function addToScore() {
 
 function collision() {
   // FIXME: something weird here, not reliably adding to the score
-  // FIXME: when collision occurs, sometimes the hammer holds the ruby and the counter keeps going
+  // FIXED: when collision occurs, sometimes the hammer holds the ruby and the counter keeps going => this is because I had only one before variable, now it's two separate ones to control collision and the ruby coordinates
   let now = new Date().getTime();
-  if (now - before > 500 && calculateCollisionPoint() < 10) {
+  if (now - beforeCollision > 500 && calculateCollisionPoint() < 10) {
     addToScore();
-    before = now;
+    beforeCollision = now;
   }
 };
 
