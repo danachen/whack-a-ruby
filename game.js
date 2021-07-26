@@ -31,7 +31,7 @@ function update() {
   let now = new Date().getTime()
   ctx.clearRect(0, 0, 600, 600);
   ctx.drawImage(hammer, hammerX, hammerY, 50, 50);
-  console.log(hammerX, hammerY)
+  // console.log(hammerX, hammerY)
   ctx.drawImage(ruby, xRubyCoord, yRubyCoord, 50, 50 );
 
   if (now - beforeUpdate > 3000) {

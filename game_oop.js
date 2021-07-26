@@ -8,24 +8,37 @@ let Hammer = {
   },
 
   keyMoves: function(e) {
-    // console.log(e);
-    document.addEventListener('click', function() {
-      switch(e.key) {
-        case('keyup'): 
-          this.y += 50;
-          break;
-        case ('keydown'):
+    switch(e.key) {
+      case('ArrowUp'): 
+        if (this.y -50 >= 0) {
           this.y -= 50;
-          break;
-        case ('keyleft'):
+        } else {
+          this.y = 0;
+        }
+        break;
+      case ('ArrowDown'):
+        if (this.y + 50 < 600) {
+          this.y += 50;
+        } else {
+          this.y = 550;
+        }
+        break;
+      case ('ArrowLeft'):
+        if (this.x - 50 >= 0) {
           this.x -= 50;
-          break;
-        case ('keyright'):
-            this.x += 50;
-            break;
-      }
-    });
-  },
+        } else {
+          this.x = 0;
+        }
+        break;
+      case ('ArrowRight'):
+        if (this.x + 50 < 600) {
+          this.x += 50;
+        } else {
+          this.x = 550;
+        }
+        break;
+    }
+},
 
   // logKey: function(e) {
   //   return e;
@@ -58,6 +71,8 @@ let Ruby = {
   },
 };
 
+let hammerBefore = new Date().getTime();
+
 let Game = {
   init: function(width, height) {
     this.width = width;
@@ -70,7 +85,15 @@ let Game = {
   },
 
   update: function() {
-      document.addEventListener('keydown', this.hammer.keyMoves);
+      document.addEventListener('keydown', e => {
+        let hammerNow = new Date().getTime();
+        // console.log(e.key);
+        // FIXME: how to have the hammer move lockstep and not immediately to the edge, the timer is not working
+        console.log(hammerNow - hammerBefore);
+        if (hammerNow - hammerBefore > 1000) {
+          this.hammer.keyMoves(e);
+        }
+      });
       canvas = document.getElementById('gameScreen');
       ctx = canvas.getContext('2d');
       ctx.clearRect(0, 0, this.width, this.height);
@@ -79,8 +102,8 @@ let Game = {
       ctx.drawImage(hammer, this.hammer.x, this.hammer.y, this.hammer.width, this.hammer.height);
       ctx.drawImage(ruby, this.ruby.x, this.ruby.y, this.ruby.width, this.ruby.height);
       // this.hammer.moves();
-      this.hammer.x += 50;
-      this.hammer.y += 50;
+      // this.hammer.x += 50;
+      // this.hammer.y += 50;
       requestAnimationFrame(this.update.bind(this));
   },
 }
