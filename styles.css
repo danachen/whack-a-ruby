@@ -1,0 +1,35 @@
+* {
+  font-family: "Press Start 2P", cursive;
+}
+
+header {
+  text-align: center;
+  display: block;
+  margin-top: 20px;
+}
+
+#container {
+  display: flex;
+  justify-content: center;
+}
+
+.rules {
+  color: seagreen;
+}
+
+#gameScreen {
+  display: block;
+  border: 1px solid sandybrown;
+  margin: 25px;
+  background-color: sandybrown;
+}
+
+/* .col-2 {
+  display: flex;
+  align-items: right;
+  justify-content: right;
+} */
+
+.scorePanel {
+  color: red;
+}

@@ -4,22 +4,38 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <style>
-      #gameScreen {
-        border: 1px solid black;
-      }
-    </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css"></style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <title>Whack A Ruby</title>
   </head>
   ​
   <body>
-    <div id="new">Score: <span id="score">0</span></div>
-    <canvas id="gameScreen" width="600" height="600">
-      <!-- <button id="scores">Score:</button> -->
-      <img src="ruby.png" id="ruby" width="70" />
-      <img src="hammer.png" id="hammer" width="50" />
-    </canvas>
+    <header>Whack a Ruby</header>
+    <div id = "container">
+      <div class="row">
+        <div class="col-2 rules">
+          <p>Rules:</p>
+        </div>
+        <div class="col-8 gameScreen">
+          <canvas id="gameScreen" width="600" height="600">
+            <img src="ruby.png" id="ruby" width="70" />
+            <img src="hammer_up_angle.png" id="hammer" width="70" />
+          </canvas>
+        </div>
+        <div class="col-2 scorePanel">
+          <div id="new"><span id = "score-line">Score: <span id="score">0</span></span>
+        </div>
+      </div>
+      </div>
+    </div>
+   
     <script src="https://code.jquery.com/jquery-2.1.0.js"></script>
     <script src="game.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
   </body>
 </html>

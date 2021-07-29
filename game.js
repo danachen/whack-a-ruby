@@ -30,10 +30,10 @@ let scores = 0;
 function update() { 
   let now = new Date().getTime()
   ctx.clearRect(0, 0, 600, 600);
-  ctx.drawImage(hammer, hammerX, hammerY, 50, 50);
-  // console.log(hammerX, hammerY)
+  ctx.drawImage(hammer, hammerX, hammerY, 120, 120);
+  // console.log('hammer: ', hammerX, hammerY)
   ctx.drawImage(ruby, xRubyCoord, yRubyCoord, 50, 50 );
-
+  // console.log('ruby: ', xRubyCoord, yRubyCoord)
   if (now - beforeUpdate > 3000) {
       xRubyCoord = rubyCoord();
       yRubyCoord = rubyCoord();
@@ -81,7 +81,7 @@ function keyMoves(e) {
 };
 
 function calculateCollisionPoint() {
-  return Math.sqrt(Math.pow(hammerX - xRubyCoord, 2) + Math.pow(hammerY - yRubyCoord, 2));
+  return Math.round(Math.sqrt(Math.pow(hammerX - xRubyCoord, 2) + Math.pow(hammerY - yRubyCoord, 2)));
 }
 
 function addToScore() {
@@ -90,11 +90,13 @@ function addToScore() {
 }
 
 function collision() {
-  // FIXME: something weird here, not reliably adding to the score
+  // FiXED: something weird here, not reliably adding to the score, because the collision score was set too low, at 50 it seems to work
   // FIXED: when collision occurs, sometimes the hammer holds the ruby and the counter keeps going => this is because I had only one before variable, now it's two separate ones to control collision and the ruby coordinates
   let now = new Date().getTime();
-  if (now - beforeCollision > 500 && calculateCollisionPoint() < 10) {
+  if (now - beforeCollision > 1000 && calculateCollisionPoint() < 50) {
+    hammer.src = "hammer_down.png";
     addToScore();
+    setTimeout(function() {hammer.src = "hammer_up_angle.png"}, 1000);
     beforeCollision = now;
   }
 };
