@@ -10,6 +10,7 @@ let Hammer = {
   keyMoves: function(e) {
     switch(e.key) {
       case('ArrowUp'): 
+      console.log(e.key);
         if (this.y -50 >= 0) {
           this.y -= 50;
         } else {
@@ -37,24 +38,8 @@ let Hammer = {
           this.x = 550;
         }
         break;
-    }
-},
-
-  // logKey: function(e) {
-  //   return e;
-  // },
-  
-  // moves: function() {
-  //   console.log('moving');
-  //   let that = this;
-  //   document.addEventListener('click', function() {
-  //     console.log(that.x, that.y);
-  //     console.log('moving');
-  //     that.x += 50;
-  //     that.y += 50;
-  //     // return that;
-  //   });
-  // },
+      }
+  },
 };
 
 let Ruby = {
@@ -67,7 +52,6 @@ let Ruby = {
   },
   
   moves: function() {
-
   },
 };
 
@@ -85,26 +69,27 @@ let Game = {
   },
 
   update: function() {
-      document.addEventListener('keydown', e => {
-        let hammerNow = new Date().getTime();
-        // console.log(e.key);
-        // FIXME: how to have the hammer move lockstep and not immediately to the edge, the timer is not working
-        console.log(hammerNow - hammerBefore);
-        if (hammerNow - hammerBefore > 1000) {
-          this.hammer.keyMoves(e);
-        }
-      });
-      canvas = document.getElementById('gameScreen');
-      ctx = canvas.getContext('2d');
-      ctx.clearRect(0, 0, this.width, this.height);
-      let hammer = document.getElementById('hammer');
-      let ruby = document.getElementById('ruby');
-      ctx.drawImage(hammer, this.hammer.x, this.hammer.y, this.hammer.width, this.hammer.height);
-      ctx.drawImage(ruby, this.ruby.x, this.ruby.y, this.ruby.width, this.ruby.height);
-      // this.hammer.moves();
-      // this.hammer.x += 50;
-      // this.hammer.y += 50;
-      requestAnimationFrame(this.update.bind(this));
+    document.addEventListener('keydown', e => {
+      let hammerNow = new Date().getTime();
+      // console.log(e.key);
+      // FIXME: how to have the hammer move lockstep and not immediately to the edge, the timer is not working
+      console.log(hammerNow - hammerBefore);
+      // if (hammerNow - hammerBefore > 1000) {
+        this.hammer.keyMoves(e);
+      // }
+    });
+    
+    canvas = document.getElementById('gameScreen');
+    ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, this.width, this.height);
+    let hammer = document.getElementById('hammer');
+    let ruby = document.getElementById('ruby');
+    ctx.drawImage(hammer, this.hammer.x, this.hammer.y, this.hammer.width, this.hammer.height);
+    ctx.drawImage(ruby, this.ruby.x, this.ruby.y, this.ruby.width, this.ruby.height);
+    // this.hammer.moves();
+    // this.hammer.x += 50;
+    // this.hammer.y += 50;
+    requestAnimationFrame(this.update.bind(this));
   },
 }
 

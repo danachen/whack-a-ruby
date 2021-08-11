@@ -1,16 +1,3 @@
-// TODO: 
-// 1. Grab the various elements needed from the DOM: hammer, ruby, an area to store the score (can also change the HTML to add the counter)
-// 2. Initialize the canvas
-// 3. Draw the hammer and ruby on the canvas
-// - Requires the use of requestAnimationFrame()
-// 4. Manipulate the hammer so that it can move across the screen
-// - Make sure the hammer cannot leave the viewport
-// 5. Randomize movement of ruby
-// - Coordinates of ruby can be randomized with a helper method
-// - Delay the painting and repainting of the Ruby image
-// 6. Add collision detection using the formula provided
-// 7. When collision occurs, track the score of the game
-
 let hammer = document.getElementById('hammer');
 let ruby = document.getElementById('ruby');
 let canvas = document.getElementById('gameScreen');
